@@ -116,3 +116,4 @@ for s in sentencesInMyString:
 
 stop = timeit.default_timer()
 print('Time: ', stop - start, "Seconds")  
+print("List length: ", len(sentencesInMyString))
