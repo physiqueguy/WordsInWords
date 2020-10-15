@@ -21,7 +21,7 @@ def load_words():
 
 theDict = load_words()  # list of words in the english dictionary
 
-mystring = input("Enter some phrase to rearrange: ")
+mystring = input("Enter some phrase to rearrange: ").lower()
 timer = time.time()
 validWords = []  # output of program
 
