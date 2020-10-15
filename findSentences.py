@@ -86,7 +86,7 @@ def checkMultiple(prevSentenceList, fullList):
         for wo in wordsInMyString:
              w = to_string(wo)
             # If length of word exceeds remaining # of characters in myString, cannot use it in sentence
-             if len(w) <= len(myString) - len(s):
+             if len(w) <= len(myString) - len(s.replace(" ", "")):
                 # If sentence found in myString and not a duplicate, add sentence to fullList
                 wordset = to_set(s + " " + w)
                 if check_word(s.replace(" ", "") + w) and wordset not in fullList:
