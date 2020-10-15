@@ -16,6 +16,12 @@ def load_words():
         words = set(word_file.read().split())
     return words
 
+def to_set(mystr):
+    myl = mystr.split()
+    return set(myl)
+
+def to_string(myset):
+    return ' '.join(myset)
 
 theDict = load_words()  # list of words in the english dictionary
 
@@ -39,7 +45,7 @@ def check_dict_words():
     for word in theDict:
         # add usable words to list
         if check_word(word):
-            validWords.append(word)
+            validWords.append(to_set(word))
     return validWords
 
 # clean function for comparing possible word to myString  returns true when it can be made from our string
@@ -65,22 +71,27 @@ def check_word(word):
     return True
 
 # Start timer
-start = timeit.default_timer()
+
+
 # Get list of words in myString (individual words)
 wordsInMyString = check_dict_words()
-
+start = timeit.default_timer()
 # Checks for full sentences made by words in myString:
 def checkMultiple(prevSentenceList, fullList):
     nextSentenceList = []
  
-    for s in prevSentenceList:
-        for w in wordsInMyString:
+    for ws in prevSentenceList:
+        s = to_string(ws)
+    
+        for wo in wordsInMyString:
+             w = to_string(wo)
             # If length of word exceeds remaining # of characters in myString, cannot use it in sentence
              if len(w) <= len(myString) - len(s):
                 # If sentence found in myString and not a duplicate, add sentence to fullList
-                if check_word(s.replace(" ", "") + w) and s + " " + w not in fullList:
-                    fullList.append(s + " " + w)
-                    nextSentenceList.append(s + " " + w)
+                wordset = to_set(s + " " + w)
+                if check_word(s.replace(" ", "") + w) and wordset not in fullList:
+                    fullList.append(wordset)
+                    nextSentenceList.append(wordset)
     
     if nextSentenceList == []:
         return fullList
@@ -93,7 +104,9 @@ def checkMultiple(prevSentenceList, fullList):
 # Reduce dictionary down to all usable words
 
 # find working combinations of usable words
-sentencesInMyString = checkMultiple(wordsInMyString, wordsInMyString)
+wordSetsInMyString = checkMultiple(wordsInMyString, wordsInMyString)
+
+sentencesInMyString = [' '.join(wordset) for wordset in wordSetsInMyString]
 
 # sort for aesthetic purposes and display
 sentencesInMyString.sort(key=len)
