@@ -77,11 +77,8 @@ def checkMultiple():
             count = 0
             # check all current possible combinations
             for w in validWords:
-                #if len(w.replace(" ", "") + word.replace(" ", "")) > len(mystring.replace(" ", "")):
-                 #   continue
                 ourword = ""
-                ourwordset = {""}
-                ourwordset.remove("")
+                ourwordset = set()
                 for wo in word:
                     ourwordset.add(wo)
                     ourword += wo
