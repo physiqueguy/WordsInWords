@@ -67,26 +67,20 @@ def check_word(word):
 
 # checks for possible combinations of already working words
 def checkMultiple():
-    # iterate over words
-    for word in validWords:
-        # copy words to new list
-        wordList.append(word)
-        # loops until we have exhausted all possible combinations for a word
-        while len(word) < len(mystring):
-            breakit = False
-            # iterate through working words to add to current word
+    # loops until all combos exhausted.  Every loop will check all words including new ones added
+    while True:
+        count = 0
+        # check all current possible combinations
+        for word in validWords:
             for w in validWords:
-                # add a word if it works with current word
-                if check_word(word.replace(" ", "") + w):
-                    word = word + " " + w
-                    wordList.append(word)
-                    # breaks for loop so we go back and try for another word yet
-                    break  # I think this might force it to skip particular combinations, like if we find one early on and there is one later
-                # break while loop when we exhaust all options  again it works but I think we're skipping some options
-                elif w == validWords[-1]:
-                    breakit = True
-            if breakit:  # needed to break while loop from for loop too lazy to do cleaner
-                break
+                # add a word combo when it words and hasn't been added yet
+                if check_word(word.replace(" ", "") + w) and (word + " " + w) not in validWords:
+                    # add one to count signifying we added another combo and will need to cross check it
+                    count += 1
+                    validWords.append(word + " " + w)
+        # count will only be 0 when we find no possible combos
+        if count == 0:
+            break
 
 
 # Reduce dictionary down to all usable words
@@ -94,6 +88,7 @@ check_dict_words()
 # find working combinations of usable words
 checkMultiple()
 # sort for aesthetic purposes and display
-wordList.sort(key=len)
-for words in wordList:
+validWords.sort(key=len)
+for words in validWords:
     print(words)
+exit()
