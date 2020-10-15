@@ -1,3 +1,7 @@
+import math
+import time
+
+
 def load_words():
     word_list = "list_of_58k_words.txt"  # delete later
     while True:
@@ -18,7 +22,7 @@ def load_words():
 theDict = load_words()  # list of words in the english dictionary
 
 mystring = input("Enter some phrase to rearrange: ")
-
+timer = time.time()
 validWords = []  # output of program
 
 stringDict = {}  # keys = letters in mystring, values = multiplicity of letter
@@ -39,7 +43,7 @@ def check_dict_words():
     for word in theDict:
         # add usable words to list
         if check_word(word):
-            validWords.append(word)
+            validWords.append({word})
 
 
 # clean function for comparing possible word to mystring  returns true when it can be made from our string
@@ -65,22 +69,35 @@ def check_word(word):
     return True
 
 
-# checks for possible combinations of already working words
+# Iteratively checks for possible combinations of already working words
 def checkMultiple():
+    for word in validWords:
     # loops until all combos exhausted.  Every loop will check all words including new ones added
-    while True:
-        count = 0
-        # check all current possible combinations
-        for word in validWords:
+        while True:
+            count = 0
+            # check all current possible combinations
             for w in validWords:
+                #if len(w.replace(" ", "") + word.replace(" ", "")) > len(mystring.replace(" ", "")):
+                 #   continue
+                ourword = ""
+                ourwordset = {""}
+                ourwordset.remove("")
+                for wo in word:
+                    ourwordset.add(wo)
+                    ourword += wo
+                for wor in w:
+                    ourword += wor
+                    ourwordset.add(wor)
+                if len(ourword.replace(" ", "")) > len(mystring.replace(" ", "")):
+                    continue
                 # add a word combo when it words and hasn't been added yet
-                if check_word(word.replace(" ", "") + w) and (word + " " + w) not in validWords:
+                if check_word(ourword) and ourwordset not in validWords:
                     # add one to count signifying we added another combo and will need to cross check it
                     count += 1
-                    validWords.append(word + " " + w)
-        # count will only be 0 when we find no possible combos
-        if count == 0:
-            break
+                    validWords.append(ourwordset)
+            # count will only be 0 when we find no possible combos
+            if count == 0:
+                break
 
 
 # Reduce dictionary down to all usable words
@@ -91,4 +108,6 @@ checkMultiple()
 validWords.sort(key=len)
 for words in validWords:
     print(words)
+print(len(validWords))
+print("time elapsed: " + str(math.floor(time.time() - timer)) + " seconds")
 exit()
