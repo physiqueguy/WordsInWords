@@ -27,7 +27,7 @@ wordList = []  # valid words
 # and letter in word contained in string
 
 # make dictionary of characters in the mystring
-for char in mystring.strip():  # strip removes spaces
+for char in mystring.replace(" ", ""):  # strip removes spaces
     if char not in stringDict.keys():
         stringDict[char] = 1
     else:
@@ -42,7 +42,7 @@ def check_dict_words():
 
 def check_word(word):
     wDict = {}
-    for w in word.strip():
+    for w in word.replace(" ", ""):
         if w not in wDict.keys():
             wDict[w] = 1
         else:
@@ -64,7 +64,7 @@ def checkMultiple():
         while len(word) < len(mystring):
             breakit = False
             for w in validWords:
-                if check_word(word + w):
+                if check_word(word.replace(" ", "") + w):
                     word = word + " " + w
                     wordList.append(word)
                     break
@@ -75,7 +75,7 @@ def checkMultiple():
 
 
 check_dict_words()
-validWords.sort(key=len)
 checkMultiple()
-for w in wordList:
-    print(w)
+wordList.sort(key=len)
+for words in wordList:
+    print(words)
