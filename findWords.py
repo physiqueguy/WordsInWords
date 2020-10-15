@@ -67,7 +67,7 @@ def checkMultiple():
                 if check_word(word + w):
                     word = word + " " + w
                     wordList.append(word)
-
+                    break
                 elif w == validWords[-1]:
                     breakit = True
             if breakit:  # needed to break while loop from for loop too lazy to do cleaner
