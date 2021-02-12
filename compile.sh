@@ -1,0 +1,1 @@
+sudo g++ main.cpp Timer.cpp Tree.cpp -o main '-std=c++14'
