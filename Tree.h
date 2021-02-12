@@ -9,9 +9,6 @@
 #include <vector>
 #include <unordered_map>
 
-
-#ifndef WIW_TREE_H
-#define WIW_TREE_H
 using namespace std;
 
 extern string nospaces(string input);
@@ -35,4 +32,3 @@ private:
 
 };
 
-#endif

@@ -2,10 +2,6 @@
 // Github: https://github.com/thjsimmons
 //======================================================================
 
-
-#ifndef EYELIKE_PROJECT_TIMER_H
-#define EYELIKE_PROJECT_TIMER_H
-
 #include <chrono>
 #include <iostream>
 
@@ -21,4 +17,4 @@ private:
 
 };
 
-#endif
+
